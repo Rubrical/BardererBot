@@ -1,5 +1,6 @@
-import * as ping from "./ping"
+import { PingCommand } from './ping';
+import { ICommand } from "./command";
 
-export const commands = {
-    ping,
-}
+export const commands: ICommand[] = [
+    new PingCommand(),
+]

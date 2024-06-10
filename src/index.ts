@@ -11,18 +11,23 @@ client.on("interactionCreate", async (interaction) => {
       return;
     }
 
-    const { commandName } = interaction;
+    const command = commands.find(cmd => cmd.data.name === interaction.commandName);
 
-    if (commands[commandName as keyof typeof commands]) {
-      commands[commandName as keyof typeof commands].execute(interaction);
+    if (command) {
+      try {
+        await command.execute(interaction);
+
+        const commandsName = interaction.commandName;
+        const userName = interaction.member?.user.username;
+        const userId = interaction.member?.user.id;
+        const server = interaction.guild;
+
+        console.log(`O comando ${commandsName}, foi executado pelo usuário ${userName} de id ${userId} no servidor ${server}`)
+      } catch (error) {
+        console.error(`Error executing command ${interaction.commandName}:`, error);
+        await interaction.reply({ content: "Houve um erro durante a execução deste comando!", ephemeral: true });
+      }
     }
-
-    const commandsName = interaction.commandName;
-    const userName = interaction.member?.user.username;
-    const userId = interaction.member?.user.id;
-    const server = interaction.guild;
-
-    console.log(`O comando ${commandsName}, foi executado pelo usuário ${userName} de id ${userId} no servidor ${server}`)
 });
 
 // Deployng commands to bot

@@ -1,11 +1,13 @@
-import { CommandInteraction, SlashCommandBuilder } from "discord.js";
+import { CacheType, CommandInteraction, SlashCommandBuilder } from "discord.js";
+import { ICommand } from "./command";
 
 
-export const data = new SlashCommandBuilder()
-    .setName("ping")
-        .setDescription("Retorna pong!");
+export class PingCommand implements ICommand {
+    public data = new SlashCommandBuilder()
+        .setName("ping")
+        .setDescription("Retorna Pong");
 
-
-export async function execute(interaction:CommandInteraction) {
-    return interaction.reply("Pong");
+    public async execute(interaction: CommandInteraction): Promise<void> {
+        await interaction.reply({ content: "Pong secreto!", ephemeral: true });
+    }
 }
