@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "main": "src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "dev": "tsx watch src/index.ts",
     "start": "node dist/index.js",
     "build": "tsup src/index.ts --minify"
@@ -13,9 +13,12 @@
   "description": "",
   "dependencies": {
     "discord.js": "^14.15.3",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "ts-jest": "^29.1.4"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "jest": "^29.7.0",
     "tsup": "^8.1.0",
     "tsx": "^4.11.2",
     "typescript": "^5.4.5"
