@@ -1,6 +1,7 @@
-import { bold, REST, Routes, SlashCommandBuilder } from "discord.js";
-import { config } from "./config";
+import { REST, Routes } from "discord.js";
+import { config } from "./config/env-config";
 import { commands } from "./commands";
+import logger from "./config/logger";
 
 const commandsData = Object.values(commands).map((command) => command.data);
 
@@ -23,7 +24,7 @@ export async function deployCommands({ guildId }: DeployCommandsProps = {}) {
             }
         );
 
-        console.log(`Successfully reloaded application (/) commands for guild: ${guildId}`);
+        logger.info(`Successfully reloaded application (/) commands for guild: ${guildId}`);
     } else {
         await rest.put(
             Routes.applicationCommands(config.CLIENT_ID),
@@ -31,9 +32,9 @@ export async function deployCommands({ guildId }: DeployCommandsProps = {}) {
                 body: commandsData
             }
         )
-        console.log("Successfully reloaded application (/) commands globally.");
+        logger.info("Successfully reloaded application (/) commands globally.");
     }
   } catch (error) {
-    console.error(error);
+    logger.error(error);
   }
 }
