@@ -1,17 +1,14 @@
 import { createLogger, format, transports } from "winston";
 
-import DailyRotateFile from 'winston-daily-rotate-file';
-
 import * as path from "path";
 import * as fs from 'fs';
 
 const { combine, timestamp, printf, colorize } = format;
 
-const logDirectory = path.join(__dirname, '../../logs');
+const logDirectory = path.join(__dirname, '../../logs/');
 if (!fs.existsSync(logDirectory)) {
     fs.mkdirSync(logDirectory);
 }
-
 const logFormat = printf(({level, message, timestamp}) => {
     return `${timestamp} [${level}: ${message}]`
 });
@@ -33,8 +30,7 @@ const logger = createLogger({
                 logFormat
             ),
             filename: path.join(logDirectory, 'app.log')
-        }),
-        // transport
+        })
     ]
 });
 
