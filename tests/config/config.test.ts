@@ -1,4 +1,4 @@
-import { config } from "../env-config";
+import { config } from '../../src/config/env-config';
 
 describe('Checks if enviroment variables comes in', () =>{
     it("Should return token and client id from .env", () => {
