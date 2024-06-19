@@ -1,4 +1,4 @@
-import { PingCommand } from "./../../../src/commands/ping";
+import { PingCommand } from "./../../src/commands/ping";
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
 
 

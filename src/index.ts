@@ -1,7 +1,8 @@
 import { Client, CommandInteraction, Events, GatewayIntentBits } from "discord.js";
-import { config } from "./config"
+import { config } from "./config/env-config";
 import { deployCommands } from "./deploy-commands";
 import { commands } from "./commands";
+import logger from "./config/logger";
 
 let client = new Client({ intents: [GatewayIntentBits.Guilds, "GuildMessages", "DirectMessages"] });
 
@@ -22,9 +23,9 @@ client.on("interactionCreate", async (interaction) => {
         const userId = interaction.member?.user.id;
         const server = interaction.guild;
 
-        console.log(`O comando ${commandsName}, foi executado pelo usuário ${userName} de id ${userId} no servidor ${server}`)
+        logger.info(`O comando ${commandsName}, foi executado pelo usuário ${userName} de id ${userId} no servidor ${server}`);
       } catch (error) {
-        console.error(`Error executing command ${interaction.commandName}:`, error);
+        logger.error(`Error executing command ${interaction.commandName}:`, error);
         await interaction.reply({ content: "Houve um erro durante a execução deste comando!", ephemeral: true });
       }
     }
@@ -37,9 +38,9 @@ client.on("guildCreate", async (guild) => {
 
 // Setting bot up
 client.once(Events.ClientReady,  async readyClient =>{
-    console.log(`De pé e operando como ${readyClient.user.tag}`)
+    logger.info(`De pé e operando como ${readyClient.user.tag}`);
     await deployCommands();
-    console.log("Commands deployed")
+    logger.info("Commands deployed");
 });
 
 
