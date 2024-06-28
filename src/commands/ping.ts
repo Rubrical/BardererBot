@@ -1,5 +1,6 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
-import { ICommand } from "./command";
+
+import { ICommand } from "../models/command";
 
 
 export class PingCommand implements ICommand {
